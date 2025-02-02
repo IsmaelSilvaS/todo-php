@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-image: url("../imagens/clay-banks-u27Rrbs9Dwc-unsplash.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#to_do{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    background-color: aliceblue;
+    padding: 18px;
+    border-radius: 8px;
+    width: 430px;
+    opacity: .8;
+}
+
+#todo h1{
+    font-size: 28px;
+    text-transform: uppercase;
+}
+
+.to-do-form{
+    display: flex;
+    width: 100%;
+}
+
+.to-do-form input{
+    background-color: transparent;
+    border: none;
+    color: #222;
+    font-size: 16px;
+    width: 100%;
+    padding: 4px;
+    border-bottom: 2px solid #888;
+}
+
+.to-do-form input:focus-visible{
+    outline: none;
+}
+
+.to-do-form .form-button{
+    border: none;
+    min-height: 40px;
+    min-width: 40px;
+    background-color: #888;
+    border-radius: 100%;
+    font-size: 20px;
+    transition: scale 0.5s ease;
+}
+
+.to-do-form .form-button:hover{
+    cursor: pointer;
+    scale: 1.05;
+}
+
+#tasks{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 400px;
+    overflow: auto;
+}
+
+.task{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #262626;
+    background-color: #000;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.task .progresso{
+    margin-right: 10px;
+}
+
+.task .task-descricao{
+    font-size: 16px;
+    color: #fff;
+    padding: 4px 0;
+    width: 100%;
+}
+
+.task .task-actions{
+    display: flex;
+    gap: 10px;
+}
+
+.action-button{
+    font-size: 16px;
+}
+
+.action-button.edit-button{
+    color: #6c9bbc;
+}
+
+.action-button.delete-button{
+    color: #888;
+}
+
+.hidden{
+    display: none;
+}
+
+@media screen and (max-width: 600px){
+    #to_do{
+        width: 300px;
+    }
+}
