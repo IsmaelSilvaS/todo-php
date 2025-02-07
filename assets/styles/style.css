@@ -89,6 +89,11 @@ body{
     margin-right: 10px;
 }
 
+.task .progresso.done + .task-descricao{
+    text-decoration: line-through;
+    color: #888;
+}
+
 .task .task-descricao{
     font-size: 16px;
     color: #fff;
@@ -114,7 +119,7 @@ body{
 }
 
 .hidden{
-    display: none;
+    display: none !important;
 }
 
 @media screen and (max-width: 600px){
