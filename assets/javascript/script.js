@@ -1,3 +1,5 @@
+console.log("Versão do jQuery: " + $.fn.jquery);
+
 $(document).ready(function(){
     $('.edit-button').on('click', function(){
         var $task = $(this).closest('.task');
@@ -7,11 +9,32 @@ $(document).ready(function(){
         $task.find('.edit-task').removeClass('hidden');
     });
 
-    $('.progresso').on('click', function(){
-        if($(this).is(':checked')){
-            $(this).addClass('done');
-        }else{
-            $(this).removeClass('done');
-        }
-    })
+    $('.progresso').on('change', function() {
+        console.log("Evento change disparado");
+    
+        const id = $(this).data('task-id');
+        const completed = $(this).is(':checked') ? 1 : 0;
+    
+        console.log("ID da tarefa: " + id);
+        console.log("Status completado: " + completed);
+    
+        $.ajax({
+            url: './actions/update-progress.php', 
+            method: 'POST',
+            data: {id: id, completed: completed},
+            dataType: 'json',
+            success: function(response) {
+                console.log(response); 
+                if (response.success) {
+                    console.log('Tarefa atualizada com sucesso');
+                } else {
+                    alert('Erro ao editar a tarefa');
+                }
+            },
+            error: function() {
+                alert('Ocorreu um erro.');
+            }
+        });
+    });    
 });
+

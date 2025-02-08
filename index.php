@@ -1,3 +1,11 @@
+<?php
+    require_once('./database/conn.php');
+    $tasks = [];
+    $sql = $pdo->query("SELECT * FROM to_do_t ORDER BY id ASC");
+    if($sql->rowCount() > 0){
+        $tasks = $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -11,7 +19,7 @@
 <body>
     <div id="to_do">
         <h1>Coisas para fazer</h1>
-        <form action="" class="to-do-form">
+        <form action="./actions/create.php" method="POST" class="to-do-form">
             <input type="text" name="descricao" placeholder="Escreva sua atividade aqui" required>
             <button class="form-button" type="submit">
                 <i class="fa-solid fa-plus"></i>
@@ -19,30 +27,33 @@
         </form>
 
         <div id="tasks">
-            <div class="task">
-                <input type="checkbox" name="progresso" class="progresso">
+            <?php foreach($tasks as $task):?>
+                <div class="task">
+                    <input type="checkbox" data-task-id="<?= $task['id']?>" name="progresso" class="progresso <?= $task['completed'] ? 'done' : ''?>" <?= $task['completed'] ? 'checked' : ''?> >
 
-                <p class="task-descricao">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem, officiis natus. Aperiam ducimus nobis dicta!
-                </p>
+                    <p class="task-descricao">
+                        <?= $task['description']?>
+                    </p>
 
-                <div class="task-actions">
-                    <a class="action-button edit-button">
-                        <i class="fa-regular fa-pen-to-square"></i>
-                    </a>
+                    <div class="task-actions">
+                        <a class="action-button edit-button">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </a>
 
-                    <a href="" class="action-button delete-button">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </a>
+                        <a href="./actions/delete.php?id=<?=$task['id']?>" class="action-button delete-button">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </a>
+                    </div>
+
+                    <form action="./actions/update.php" method="POST" class="to-do-form edit-task hidden">
+                        <input type="text" class="hidden" name="id" value="<?=$task['id']?>">
+                        <input type="text" name="descricao" placeholder="Editar esta task" value="<?=$task['description']?>">
+                        <button type="submit" class="form-button confirm-button">
+                            <i class="fa-regular fa-check"></i>
+                        </button>
+                    </form>
                 </div>
-
-                <form action="" class="to-do-form edit-task hidden">
-                    <input type="text" name="descricao" placeholder="Editar esta task">
-                    <button type="submit" class="form-button confirm-button">
-                        <i class="fa-regular fa-check"></i>
-                    </button>
-                </form>
-            </div>
+            <?php endforeach;?>
         </div>
     </div>
 
